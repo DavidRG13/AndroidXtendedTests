@@ -22,6 +22,11 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
     }
     buildTypes {
         release {
@@ -33,4 +38,7 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
+
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
 }
