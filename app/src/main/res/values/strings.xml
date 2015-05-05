@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AndroidXtended</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="suma">Suma</string>
+    <string name="firstNumberHint">Introduce numero 1</string>
+    <string name="secondNumberHint">Introduce numero 2</string>
+    <string name="result">Resultado</string>
+</resources>
