@@ -8,12 +8,16 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private Calculator calculator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         findViewById(R.id.calculateButton).setOnClickListener(this);
+
+        calculator = new Calculator();
     }
 
     @Override
@@ -22,7 +26,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int number1 = Integer.parseInt(((EditText) findViewById(R.id.numero1)).getText().toString());
             int number2 = Integer.parseInt(((EditText) findViewById(R.id.numero2)).getText().toString());
 
-            ((TextView) findViewById(R.id.result)).setText(String.valueOf(number1 + number2));
+            int result = calculator.add(number1, number2);
+            ((TextView) findViewById(R.id.result)).setText(String.valueOf(result));
         }
     }
 }
