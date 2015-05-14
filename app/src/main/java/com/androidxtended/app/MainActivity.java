@@ -2,32 +2,66 @@ package com.androidxtended.app;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Calculator calculator;
+    public static final String USER_EXTRA = "userName";
+
+    private FakeThirdPartyService fakeThirdPartyService;
+    private String userName;
+    private String result = "";
+    private boolean resultWritten = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.calculateButton).setOnClickListener(this);
+        TextView userNameTextView = (TextView) findViewById(R.id.userName);
+        userName = getIntent().getStringExtra(USER_EXTRA);
+        userNameTextView.setText(this.userName);
 
-        calculator = new Calculator();
+        findViewById(R.id.sendOpinionButton).setOnClickListener(this);
+
+        fakeThirdPartyService = new FakeThirdPartyService();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (resultWritten) {
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //noinspection SimplifiableIfStatement
+        if (item.getItemId() == R.id.action_settings) {
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(final View view) {
-        if (view.getId() == R.id.calculateButton) {
-            int number1 = Integer.parseInt(((EditText) findViewById(R.id.numero1)).getText().toString());
-            int number2 = Integer.parseInt(((EditText) findViewById(R.id.numero2)).getText().toString());
+        if (view.getId() == R.id.sendOpinionButton) {
+            String opinion = ((EditText) findViewById(R.id.opinion)).getText().toString();
 
-            int result = calculator.add(number1, number2);
-            ((TextView) findViewById(R.id.result)).setText(String.valueOf(result));
+            result = fakeThirdPartyService.buildOpinion(userName, opinion);
+            ((TextView) findViewById(R.id.result)).setText(result);
+
+            findViewById(R.id.result).setVisibility(View.VISIBLE);
+            resultWritten = true;
+            invalidateOptionsMenu();
         }
     }
 }
