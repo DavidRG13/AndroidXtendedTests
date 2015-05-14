@@ -1,5 +1,8 @@
 package com.androidxtended.app;
 
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.app.Instrumentation.ActivityResult;
 import android.content.Intent;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -12,9 +15,14 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.Intents.intending;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
@@ -68,26 +76,17 @@ public class MainActivityTest {
     }
 
     @Test
-    public void bla2(){
-        // TODO: Intended
+    public void shouldShareTheOpinion(){
+        intending(hasAction(Intent.ACTION_SEND))
+            .respondWith(new ActivityResult(Activity.RESULT_OK, null));
+        onView(withId(R.id.opinion)).perform(typeText(A_RANDOM_OPINION));
+        onView(withId(R.id.sendOpinionButton)).perform(click());
+
+        onView(withId(R.id.action_settings)).perform(click());
+
+        intended(allOf(
+            hasAction(Intent.ACTION_SEND),
+            hasExtra(Intent.EXTRA_TEXT, DEFAULT_OPINION)
+        ));
     }
-
-
-    @Test
-    public void bla3(){
-        // TODO: intent check
-    }
-
-
-    @Test
-    public void bla4(){
-        // TODO: check ActionBar
-    }
-
-
-    @Test
-    public void bla5(){
-        // TODO: click actionBar
-    }
-
 }

@@ -9,7 +9,7 @@ public class FakeThirdPartyServiceTest {
     FakeThirdPartyService fakeThirdPartyService = new FakeThirdPartyService();
 
     @Test
-    public void testAddOneAndTwo() throws Exception {
+    public void shouldBuildProperlyTheOpinion() throws Exception {
         // given
         String userName = "Pepe";
         String opinion = "de lujo";

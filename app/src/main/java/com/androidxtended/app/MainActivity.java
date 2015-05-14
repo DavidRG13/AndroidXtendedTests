@@ -1,5 +1,6 @@
 package com.androidxtended.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -7,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         //noinspection SimplifiableIfStatement
         if (item.getItemId() == R.id.action_settings) {
-
+            shareOpinion();
             return true;
         }
 
@@ -57,11 +57,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String opinion = ((EditText) findViewById(R.id.opinion)).getText().toString();
 
             result = fakeThirdPartyService.buildOpinion(userName, opinion);
-            ((TextView) findViewById(R.id.result)).setText(result);
-
-            findViewById(R.id.result).setVisibility(View.VISIBLE);
+            TextView resultTextView = (TextView) findViewById(R.id.result);
+            resultTextView.setText(result);
+            resultTextView.setVisibility(View.VISIBLE);
             resultWritten = true;
             invalidateOptionsMenu();
         }
+    }
+
+    private void shareOpinion() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, result);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
 }
