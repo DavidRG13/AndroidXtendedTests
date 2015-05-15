@@ -1,7 +1,6 @@
 package com.androidxtended.app;
 
 import android.app.Activity;
-import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityResult;
 import android.content.Intent;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
@@ -29,7 +28,7 @@ public class MainActivityTest {
 
     public static final String DEFAULT_USER_NAME = "Pepe";
     public static final String A_RANDOM_OPINION = "a random opinion";
-    public static final String DEFAULT_OPINION = DEFAULT_USER_NAME + " " + A_RANDOM_OPINION + " en #AndroidXtended";
+    public static final String DEFAULT_OPINION = "Tu nombre es Pepe y opinas que #AndroidXtended es a random opinion";
 
     @Rule
     public IntentsTestRule<MainActivity> activityRule = new IntentsTestRule<MainActivity>(MainActivity.class) {
@@ -86,7 +85,7 @@ public class MainActivityTest {
 
         intended(allOf(
             hasAction(Intent.ACTION_SEND),
-            hasExtra(Intent.EXTRA_TEXT, DEFAULT_OPINION)
+            hasExtra(Intent.EXTRA_TEXT, MainActivity.TESTEANDO_EN_ANDROID_XTENDED)
         ));
     }
 }

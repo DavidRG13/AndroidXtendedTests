@@ -8,6 +8,6 @@ public class FakeThirdPartyService {
     }
 
     private String getOpinionFromServer() {
-        return "%s %s en #AndroidXtended";
+        return "Tu nombre es %s y opinas que #AndroidXtended es %s";
     }
 }

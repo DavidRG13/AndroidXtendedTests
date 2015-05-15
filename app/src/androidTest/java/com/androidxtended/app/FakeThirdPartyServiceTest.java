@@ -9,7 +9,7 @@ public class FakeThirdPartyServiceTest {
     FakeThirdPartyService fakeThirdPartyService = new FakeThirdPartyService();
 
     @Test
-    public void shouldBuildProperlyTheOpinion() throws Exception {
+    public void shouldBuildProperlyTheOpinion() {
         // given
         String userName = "Pepe";
         String opinion = "de lujo";
@@ -18,6 +18,6 @@ public class FakeThirdPartyServiceTest {
         String actualMessage = fakeThirdPartyService.buildOpinion(userName, opinion);
 
         // then
-        assertEquals("Pepe de lujo en #AndroidXtended", actualMessage);
+        assertEquals("Tu nombre es Pepe y opinas que #AndroidXtended es de lujo", actualMessage);
     }
 }
